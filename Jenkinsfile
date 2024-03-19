@@ -10,16 +10,16 @@ pipeline {
         stage("Build"){
             steps {
                 echo "Building the image"
-                sh "docker image build . -t $JOB_NAME"
+                sh "docker image build . -t webimage"
             }
         }
         stage("Push to Docker Hub"){
             steps {
                 echo "Pushing the image to docker hub"
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
-                sh "docker image tag $JOB_NAME ${env.dockerHubUser}/$JOB_NAME:latest"
+                sh "docker image tag webimage ${env.dockerHubUser}/webimage:latest"
                 sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
-                sh "docker push ${env.dockerHubUser}/$JOB_NAME:latest"
+                sh "docker push ${env.dockerHubUser}/webimage:latest"
                 }
             }
         }
