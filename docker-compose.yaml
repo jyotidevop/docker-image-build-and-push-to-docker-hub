@@ -1,0 +1,7 @@
+version : "3.3"
+services :
+   web :
+     image : jyotichaudhary90/dockerimagepush:latest
+     ports:
+        - "80:80"
+       
